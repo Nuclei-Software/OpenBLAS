@@ -36,10 +36,10 @@ USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define VSEV_FLOAT vse32_v_f32m2
 #define VLSEV_FLOAT vlse32_v_f32m2
 #define VBOOL_T vbool16_t
-#define UINT_V_T vint32m2_t
-#define VID_V_UINT vid_v_i32m2
-#define VMSGTU_VX_UINT vmsgt_vx_i32m2_b16
-#define VMSEQ_VX_UINT vmseq_vx_i32m2_b16
+#define UINT_V_T vuint32m2_t
+#define VID_V_UINT vid_v_u32m2
+#define VMSGTU_VX_UINT vmsgtu_vx_u32m2_b16
+#define VMSEQ_VX_UINT vmseq_vx_u32m2_b16
 #define VFMERGE_VFM_FLOAT  vfmerge_vfm_f32m2
 #else
 #define VSETVL(n) vsetvl_e64m2(n)
