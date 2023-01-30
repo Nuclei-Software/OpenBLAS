@@ -39,17 +39,16 @@ Note： Nuclei添加了HAS_RVV宏用来区分编译是否使用VPU加速。
 
 ## 2 下载源码并交叉编译：
 
-* 编译libopenblas库
+* 配置环境并编译、install 库
 
 ~~~shell
-# step1：下载源码并建立自己的开发分支
-git clone --branch nuclei_rvv https://gito.corp.nucleisys.com/software/linuxdev/OpenBLAS.git
-
-# step2：下载工具链，然后设置工具链路径以及环境变量
+# step:1：下载工具链，然后设置工具链路径以及环境变量
 # 工具链下载路径：https://nucleisys.com/download.php#tools 
 # 下载 Nuclei GNU Toolchain，然后配置工具链路径，可以通过以下命令检查工具链是否正确设置
 riscv-nuclei-linux-gnu-gcc -v
 
+# step2：下载源码（nuclei_rvv分支）
+git clone --branch nuclei_rvv https://gito.corp.nucleisys.com/software/linuxdev/OpenBLAS.git
 cd OpenBLAS
 export OPENBLAS_ROOT=$(readlink -f ../OpenBLAS)
 
@@ -60,6 +59,25 @@ make HOSTCC=gcc TARGET=UX900FD CC=riscv-nuclei-linux-gnu-gcc NOFORTRAN=1 NO_SHAR
 
 # step4：install库（可以在${OPENBLAS_ROOT}/tools路径找到最终编译的库libopenblas.a）
 make HOSTCC=gcc TARGET=UX900FD CC=riscv-nuclei-linux-gnu-gcc NOFORTRAN=1 NO_SHARED=1 USE_THREAD=0 NO_LAPACK=1 USE_OPENMP=0 CFLAGS=-static BINARY=64 PREFIX=${OPENBLAS_ROOT}/tools install
+
+# step5：编译 utest、ctest、benchmark（非必须）
+~~~
+
+* 使用脚本快速编译、install 库
+
+提供了nuclei_run.sh脚本帮助快速build-->install-->build tests。
+
+使用方法：
+
+~~~shell
+# step1：同样需要配置工具链路径
+# step2：下载源码（nuclei_rvv分支）
+git clone --branch nuclei_rvv https://gito.corp.nucleisys.com/software/linuxdev/OpenBLAS.git
+# step3：使用脚本
+cd OpenBLAS
+source nuclei_run.sh
+# 输入1或2, 2表示不带V扩展，1或者其它表示带RVV扩展
+# 等待编译完成，其中生成的库放在tools目录下，生成的utest、ctest、benchmark都在对应的目录
 ~~~
 
 ## 3 上板测试及数据
@@ -459,8 +477,10 @@ https://gist.github.com/xianyi/
 
 # 例如：编译time_clbas_sgemm
 riscv-nuclei-linux-gnu-gcc -o time_clbas_dgemm time_clbas_dgemm.c -I${OPENBLAS_ROOT}/tools/include/ ${OPENBLAS_ROOT}/tools/lib/libopenblas.a -static
+
 # 将 time_clbas_dgemm 拷贝到linux环境下执行，执行如下命令，其中m = 32 n = 32 k = 32
 ./time_clbas_dgemm 32 32 32
+
 # 在当前文件夹生成 timeDGEMM.txt，内容为：
 32x32x32        0.002319 s      28.260457 MFLOPS
 ~~~
