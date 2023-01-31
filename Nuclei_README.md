@@ -114,6 +114,7 @@ $ make HOSTCC=gcc TARGET=UX900FD CC=riscv-nuclei-linux-gnu-gcc NOFORTRAN=1 NO_SH
 
 ~~~shell
 # ./openblas_utest
+# ./openblas_utest_v
 TEST 1/35 max:smax_zero [OK]
 TEST 2/35 max:dmax_positive [OK]
 TEST 3/35 max:smax_negative [OK]
@@ -147,15 +148,9 @@ TEST 30/35 rot:zdrot_inc_0 [OK]
 TEST 31/35 rot:drot_inc_0 [OK]
 TEST 32/35 dnrm2:dnrm2_tiny [OK]
 TEST 33/35 dnrm2:dnrm2_inf [OK]
-TEST 34/35 fork:safety [SIGNAL 11: Segmentation fault]
-[FAIL]
-  ERR: test_fork.c:60  expected 1.000e+03, got 8.720e+02 (diff 1.280e+02, tol 1.000e-13)
-TEST 35/35 fork:safety_after_fork_in_parent [FAIL]
-  ERR: test_post_fork.c:120  expected 152, got 153
-RESULTS: 35 tests (33 ok, 2 failed, 0 skipped) ran in 100611 ms
+TEST 34/35 fork:safety [OK]
+TEST 35/35 fork:safety_after_fork_in_parent [OK]
 ~~~
-
-失败的两个用例与fork safety有关。
 
 ### 3.2 ctest用例
 
