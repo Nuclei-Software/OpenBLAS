@@ -197,7 +197,7 @@ Please read `GotoBLAS_01Readme.txt` for older CPU models already supported by th
 
   ```sh
   # enable RVV for Nuclei UX900FD by ARCH_EXT=v
-  make HOSTCC=gcc TARGET=UX900FD ARCH_EXT=v CC=riscv-nuclei-linux-gnu- gcc NOFORTRAN=1 NO_SHARED=1 USE_THREAD=0 CFLAGS=-static BINARY=64
+  make HOSTCC=gcc TARGET=UX900FD ARCH_EXT=v CC=riscv-nuclei-linux-gnu-gcc NOFORTRAN=1 NO_SHARED=1 USE_THREAD=0 CFLAGS=-static BINARY=64
   ```
 
 ### Support for multiple targets in a single library
