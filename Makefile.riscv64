@@ -8,13 +8,8 @@ FCOMMON_OPT += -march=rv64imafdcv_zba_zbb_zfh -mabi=lp64d -static
 endif
 
 ifeq ($(CORE), UX900FD)
-ifeq ($(HAS_RVV), 1)
-CCOMMON_OPT += -march=rv64imafdcv -mabi=lp64d -mtune=nuclei-900-series -static
-FCOMMON_OPT += -march=rv64imafdcv -mabi=lp64d -mtune=nuclei-900-series -static
-else
-CCOMMON_OPT += -march=rv64imafdc -mabi=lp64d -mtune=nuclei-900-series -static
-FCOMMON_OPT += -march=rv64imafdc -mabi=lp64d -mtune=nuclei-900-series -static
-endif
+CCOMMON_OPT += -march=rv64imafdc$(ARCH_EXT) -mabi=lp64d -mtune=nuclei-900-series -static
+FCOMMON_OPT += -march=rv64imafdc$(ARCH_EXT) -mabi=lp64d -mtune=nuclei-900-series -static
 endif
 
 ifeq ($(CORE), RISCV64_GENERIC)

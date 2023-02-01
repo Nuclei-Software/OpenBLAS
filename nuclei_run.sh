@@ -8,15 +8,15 @@ makeopts="HOSTCC=gcc TARGET=${TARGET} CC=${CC} NOFORTRAN=1 NO_SHARED=1 USE_THREA
 
 function usage() {
   echo -n1 -e "\nPlease enter the choice:"
-  echo "1. quick build (has RVV)"
-  echo "2. quick build (no RVV)"
+  echo "1. quick build (ARCH_EXT=v)"
+  echo "2. quick build (none)"
   read -p "default 1:" choice
   if [ "$choice" = "2" ]; then
-    has_rvv=0
-    echo "choice 2: no RVV"
+    ARCH_EXT=
+    echo "choice 2: no RVV opt"
   else
-    has_rvv=1
-    echo "choice 1: use RVV"
+    ARCH_EXT=v
+    echo "choice 1: use RVV opt"
   fi
   read -p "Please check and Press Enter to continue build..."
 }
@@ -30,19 +30,19 @@ function env_setup() {
 }
 
 function clean_all() {
-  runcmd="make ${makeopts} HAS_RVV=${has_rvv} clean"
+  runcmd="make ${makeopts} ARCH_EXT=${ARCH_EXT} clean"
   echo $runcmd
   eval $runcmd
 }
 
 function build_lib() {
-  runcmd="make ${makeopts} HAS_RVV=${has_rvv}"
+  runcmd="make ${makeopts} ARCH_EXT=${ARCH_EXT}"
   echo $runcmd
   eval $runcmd
 }
 
 function intall_lib() {
-  runcmd="make ${makeopts} PREFIX=${OPENBLAS_ROOT}/tools install"
+  runcmd="make ${makeopts} PREFIX=${OPENBLAS_ROOT}/prefix install"
   echo $runcmd
   eval $runcmd
 }
