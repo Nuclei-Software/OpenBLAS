@@ -82,11 +82,12 @@ riscv-nuclei-linux-gnu-gcc -o time_clbas_dgemm time_clbas_dgemm.c -I${OPENBLAS_R
 # step3: test executable file on board
 # You need to put executable file(here is time_clbas_dgemm) in SDcard and boot linux on Nuclei HW platform
 
-# Q: How to Boot linux from SDcard on Nuclei HW platform ?q
+# Q: How to Boot linux from SDcard on Nuclei HW platform ?
 # A: Reference: https://github.com/Nuclei-Software/nuclei-linux-sdk/README.md
+#    Note: Only dev_nuclei_5.18 support rvv, you need to checkout branch dev_nuclei_5.18
 
 # Q: How to run executable file on Nuclei HW platform ?
-# A: Reference: https://github.com/Nuclei-Software/nuclei-linux-sdk/README.md, and the chapter(Put prebuilt applications into SDCard)
+# A: Reference: https://github.com/Nuclei-Software/nuclei-linux-sdk/README.md, and read the chapter (Put prebuilt applications into SDCard)
 
 # Waiting for linux boot and mount SDcard
 mount -t vfat /dev/mmcblk0p1 /mnt
