@@ -7,7 +7,7 @@ CC=${CC:-riscv-nuclei-linux-gnu-gcc}
 makeopts="HOSTCC=gcc TARGET=${TARGET} CC=${CC} NOFORTRAN=1 NO_SHARED=1 USE_THREAD=0 NO_LAPACK=1 USE_OPENMP=0 CFLAGS=-static BINARY=64"
 
 function usage() {
-  echo -n1 -e "\nPlease enter the choice:"
+  echo -e "\nPlease enter the choice:"
   echo "1. quick build (ARCH_EXT=v)"
   echo "2. quick build (none)"
   read -p "default 1:" choice

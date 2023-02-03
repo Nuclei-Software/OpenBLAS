@@ -7,7 +7,7 @@ OpenBLAS is an optimized BLAS (Basic Linear Algebra Subprograms) library based o
 
 Please read the documentation on the OpenBLAS wiki pages: <https://github.com/xianyi/OpenBLAS/wiki>.
 
-Nuclei corp provide VPU version in order to inprove OpenBLAS performance.
+Nuclei corp. provide VPU version in order to inprove OpenBLAS performance.
 
 ## Download Source
 
@@ -57,7 +57,7 @@ cd benchmark
 make HOSTCC=gcc TARGET=UX900FD CC=riscv-nuclei-linux-gnu-gcc NOFORTRAN=1 NO_SHARED=1 NO_LAPACK=1 USE_THREAD=0 USE_OPENMP=0 CFLAGS=-static BINARY=64 all
 ```
 
-In addition, here is a scrit to run above process，at first, you should finished download Source and config cross toolchains , then execute as fellows:
+In addition, here is a scrit to run above process，at first, you should finished download Source and config cross toolchains , then execute as follows:
 
 ```sh
 cd OpenBLAS
@@ -79,7 +79,7 @@ source nuclei_run.sh
 # step2: Compile with libopenblas.a
 riscv-nuclei-linux-gnu-gcc -o time_clbas_dgemm time_clbas_dgemm.c -I${OPENBLAS_ROOT}/prefix/include/ ${OPENBLAS_ROOT}/prefix/lib/libopenblas.a -static
 
-# step3: test executable file on board
+# step3: Test executable file on HW board
 # You need to put executable file(here is time_clbas_dgemm) in SDcard and boot linux on Nuclei HW platform
 
 # Q: How to Boot linux from SDcard on Nuclei HW platform ?
@@ -109,7 +109,7 @@ mkdir goto
 mv *.goto goto
 cd goto && ls
 
-# Here is all benchmark executable file
+# Here are all benchmark executable files
 camax.goto   cger.goto    cscal.goto   ctrmv.goto   ddot.goto   dscal.goto   dsyr.goto    icamax.goto  ismin.goto   scopy.goto  srotm.goto  ssyr2k.goto  zamax.goto   zgemv.goto   zhpmv.goto   ztrmv.goto
 camin.goto   chbmv.goto   csrot.goto   ctrsm.goto   dgemm.goto  dspmv.goto   dsyrk.goto   icamin.goto  izamax.goto  sdot.goto   sscal.goto  ssyr.goto    zamin.goto   zger.goto    zscal.goto   ztrsm.goto
 casum.goto   chemm.goto   cswap.goto   ctrsv.goto   dgemv.goto  dspr2.goto   dtpmv.goto   idamax.goto  izamin.goto  sgemm.goto  sspmv.goto  ssyrk.goto   zasum.goto   zhbmv.goto   zswap.goto   ztrsv.goto
@@ -123,11 +123,11 @@ cgemv.goto   chpmv.goto   ctrmm.goto   dcopy.goto   drotm.goto  dsyr2k.goto  dzn
 
 **Test data**
 
-Here is performance when execute sgemm.goto on Nuclei FPGA Evaluation Board（SOC=UX900fd VPU freq = 100MHz）, We can see performance improved 4x if use VPU opt.
+Here is performance figure when execute sgemm.goto on Nuclei FPGA Evaluation Board（SOC=UX900fd VPU freq = 100MHz）, We can see performance improved 4x if use VPU opt.
 
 ![openblas sgemm vpu vs none](nuclei_Openblas_sgemm.png)
 
-And other data (Single precision Floating-point test ) as fellows:
+And other data (Single precision Floating-point tests ) as follows:
 
 Note: for the convenience of presentation, we only select the data in step 200
 
