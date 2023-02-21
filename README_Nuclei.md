@@ -7,7 +7,7 @@ OpenBLAS is an optimized BLAS (Basic Linear Algebra Subprograms) library based o
 
 Please read the documentation on the OpenBLAS wiki pages: <https://github.com/xianyi/OpenBLAS/wiki>.
 
-Nuclei corp. provide VPU version in order to inprove OpenBLAS performance.
+Nuclei corp. provide VPU version in order to improve OpenBLAS performance.
 
 ## Download Source
 
@@ -33,13 +33,13 @@ Set `CC` to point to the cross toolchains, and set `HOSTCC` to your host C compi
 The target must be specified explicitly when cross compiling.
 
 ```sh
-# step1: Download and set cross toolchains path, check whether the command is correct
+# step1: Download and set cross toolchains path, check whether nuclei-gcc is available
 riscv-nuclei-linux-gnu-gcc -v
 
-# step2: Build openblas lib(with RVV)
+# step2: Build openblas lib(with RVV, ARCH_EXT=v)
 make HOSTCC=gcc TARGET=UX900FD ARCH_EXT=v CC=riscv-nuclei-linux-gnu-gcc NOFORTRAN=1 NO_SHARED=1 USE_THREAD=0 NO_LAPACK=1 USE_OPENMP=0 CFLAGS=-static BINARY=64
-# or no RVV
-make HOSTCC=gcc TARGET=UX900FD ARCH_EXT= CC=riscv-nuclei-linux-gnu-gcc NOFORTRAN=1 NO_SHARED=1 USE_THREAD=0 NO_LAPACK=1 USE_OPENMP=0 CFLAGS=-static BINARY=64 HAS_RVV=0
+# or no RVV(ARCH_EXT=)
+make HOSTCC=gcc TARGET=UX900FD ARCH_EXT= CC=riscv-nuclei-linux-gnu-gcc NOFORTRAN=1 NO_SHARED=1 USE_THREAD=0 NO_LAPACK=1 USE_OPENMP=0 CFLAGS=-static BINARY=64
 
 # step3: Install lib, the libopenblas.a is located in ${OPENBLAS_ROOT}/prefix
 cd OpenBLAS
@@ -54,17 +54,17 @@ cd ctest
 make HOSTCC=gcc TARGET=UX900FD CC=riscv-nuclei-linux-gnu-gcc NOFORTRAN=1 NO_SHARED=1 NO_LAPACK=1 USE_THREAD=0 USE_OPENMP=0 CFLAGS=-static BINARY=64 all
 
 cd benchmark
-make HOSTCC=gcc TARGET=UX900FD CC=riscv-nuclei-linux-gnu-gcc NOFORTRAN=1 NO_SHARED=1 NO_LAPACK=1 USE_THREAD=0 USE_OPENMP=0 CFLAGS=-static BINARY=64 all
+make HOSTCC=gcc TARGET=UX900FD CC=riscv-nuclei-linux-gnu-gcc NOFORTRAN=1 NO_SHARED=1 NO_LAPACK=1 USE_THREAD=0 USE_OPENMP=0 CFLAGS=-static BINARY=64 goto
 ```
 
-In addition, here is a scrit to run above process，at first, you should finished download Source and config cross toolchains , then execute as follows:
+In addition, here is a script to run above process，at first, you should finished download source and config cross toolchains , then execute as follows:
 
 ```sh
 cd OpenBLAS
 source nuclei_run.sh
 
 # Then, you should make a choice
-# enter 1 or other means: use VPU opt
+# enter 1: means: use VPU opt
 # enter 2: means no VPU opt
 
 # Then, enter to continue build
@@ -73,7 +73,7 @@ source nuclei_run.sh
 ### How to configure examples
 
 ```sh
-# step1: Coding do myself or download examples from https://gist.github.com/xianyi/
+# step1: Code by yourself or download examples from https://gist.github.com/xianyi/
 # For example: download time_clbas_dgemm.c from https://gist.github.com/xianyi/
 
 # step2: Compile with libopenblas.a
@@ -97,13 +97,13 @@ cd /mnt
 
 ## Data performance
 
-We can measure Openblas performance use benchmark. Here is the performance on Nuclei FPGA Evaluation Board（SOC=UX900fd VPU freq = 100MHz）
+We can measure Openblas performance using benchmark. Here is the performance on Nuclei FPGA Evaluation Board（SOC=UX900fd VPU freq = 100MHz）
 
 **Compile benchmark**
 
 ```sh
 cd benchmark
-make HOSTCC=gcc TARGET=UX900FD CC=riscv-nuclei-linux-gnu-gcc NOFORTRAN=1 NO_SHARED=1 NO_LAPACK=1 USE_THREAD=0 USE_OPENMP=0 CFLAGS=-static BINARY=64 all
+make HOSTCC=gcc TARGET=UX900FD CC=riscv-nuclei-linux-gnu-gcc NOFORTRAN=1 NO_SHARED=1 NO_LAPACK=1 USE_THREAD=0 USE_OPENMP=0 CFLAGS=-static BINARY=64 goto
 
 mkdir goto
 mv *.goto goto
